@@ -20,6 +20,7 @@ long double dnb = 0.001;
 
 long double n0 = 0.153;
 
+long double m0 = 939.56563;
 long double m[3] = {939.56563/938.27231, 938.27231/938.27231, 0.5109991/938.27231};
 
 
@@ -68,8 +69,9 @@ int main() {
             outputfile << nb << "\t" << e << "\t" << p << std::endl;
         }
         
-        std::cout << "Density: " << nb*pow(kk, 1/3) << " Energy: " << e << " Pressure: " << p << std::endl;
+        std::cout << "Density: " << nb/n0 << " Energy: " << e << " Pressure: " << p << std::endl;
     }
+    outputfile << "-1., -1., -1." << std::endl;
     outputfile.close();
     return 0;
 }
