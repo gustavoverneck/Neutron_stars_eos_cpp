@@ -11,7 +11,8 @@ long double pi = 3.14159265358979323846;
 long double pi2 = pi*pi;
 long double hc = 197.3269718;
 
-long double kk = 938.27231/hc;
+long double m0 = 939.56563;
+long double kk = 938.27231/m0;
 
 // Range
 long double nb_i = 0.1;
@@ -20,8 +21,7 @@ long double dnb = 0.001;
 
 long double n0 = 0.153;
 
-long double m0 = 939.56563;
-long double m[3] = {939.56563/938.27231, 938.27231/938.27231, 0.5109991/938.27231};
+long double m[3] = {939.56563/m0, 938.27231/m0, 0.5109991/m0};
 
 
 // EOS Function
@@ -66,10 +66,10 @@ int main() {
         std::tie(e, p) = eos(x);
 
         if ((e >= 0.0) and (p >= 0.0)){
-            outputfile << nb << "\t" << e << "\t" << p << std::endl;
+            outputfile << nb*pow(kk,3) << "\t" << e*pow(kk,4) << "\t" << p*pow(kk,4) << std::endl;
         }
         
-        std::cout << "Density: " << nb/n0 << " Energy: " << e << " Pressure: " << p << std::endl;
+        //std::cout << "Density: " << nb*pow(kk,3) << " Energy: " << e*pow(kk,4) << " Pressure: " << p*pow(kk,4) << std::endl;
     }
     outputfile << "-1., -1., -1." << std::endl;
     outputfile.close();
