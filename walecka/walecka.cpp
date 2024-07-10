@@ -11,7 +11,7 @@ long double pi = 3.14159265358979323846;
 long double pi2 = pi*pi;
 long double hc = 197.3269718;
 
-long double m0 = 939.56563;
+long double m0 = 939.56563; // Mass of nucleon
 long double kk = 938.27231/m0;
 
 // Range
@@ -19,9 +19,19 @@ long double nb_i = 0.1;
 long double nb_f = 1.0;
 long double dnb = 0.001;
 
-long double n0 = 0.153;
+long double n0 = 0.153;     // Saturation density
 
-long double m[3] = {939.56563/m0, 938.27231/m0, 0.5109991/m0};
+// Masses
+long double mb[8] = {0.938272, 1.115683, 1.18937, 1.192642, 1.31486, 1.32171, 1.3872, 1.540};
+long double ml[2] = {0.511, 105.658};
+long double ms = 550.0;
+long double mv = 783.0;
+long double mr = 770.0;
+
+// Variables
+long double x[4] = {0.0, 0.0, 0.0, 0.0};    // x = {kf_e, sigma, omega}
+long double fvec[4] = {0.0, 0.0, 0.0, 0.0};
+
 
 
 // EOS Function
@@ -29,10 +39,14 @@ std::tuple<long double, long double> eos(long double x[3]){
     
     long double e = 0.0; long double p = 0.0;
     
-    for(int i = 0; i < 2; i++){
-        e += (1/(8*pi2))*(x[i]*sqrt(pow(x[i], 2) + pow(m[i],2))*(2*(pow(x[i],2))+pow(m[i],2)) - pow(m[i],4)*log((x[i]+sqrt(pow(x[i],2)+pow(m[i],2)))/(m[i])));
-        p += (1/(24*pi2))*(((2*pow(x[i],5) - (pow(x[i],3))*pow(m[i],2) - 3*x[i]*pow(m[i],4))/(sqrt(pow(m[i],2) + pow(x[i],2)))) + (3*pow(m[i],4))*log(abs((x[i]*sqrt(pow(m[i],2) + pow(x[2],2)))/(m[i]))));
-    }
+    // EOS for baryons
+
+
+    // EOS for leptons
+
+
+    // EOS for mesons
+
 
     return std::make_tuple(e, p);
 }
@@ -48,20 +62,15 @@ long double kf(long double n){
     return pow(3*pi2*n, 1.0/3.0);
 }
 
-// Proton Fermi Momentum
-long double kf_p(long double kf_n){
-    return (pow(kf_n, 2) + pow(m[0], 2) - pow(m[1], 2))/(2*sqrt(pow(kf_n, 2) + pow(m[0], 2)));
-}
 
 int main() {
     std::ofstream outputfile("eos.dat");
     long double x[3] = {0.0, 0.0, 0.0};
     long double e = 0.0; long double p = 0.0;
 
+    // main loop
     for (long double nb = nb_i; nb < nb_f; nb += dnb){
-        x[0] = kf(nb);
-        x[1] = kf_p(kf(nb));
-        x[2] = x[1];
+        
 
         std::tie(e, p) = eos(x);
 

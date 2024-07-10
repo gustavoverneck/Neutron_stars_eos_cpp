@@ -2,9 +2,6 @@
 #include <stdio.h>
 #include <armadillo>
 
-// install armadillo from
-// https://www.uio.no/studier/emner/matnat/fys/FYS4411/v13/guides/installing-armadillo/
-
 // Functions
 double funcv1(double x) {
     
